@@ -3,7 +3,8 @@ package com.bofa;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.bofa.model.Customer;
+
+import com.bofa.model.Transaction;
 
 @SpringBootApplication
 public class BofaApplication {
@@ -11,9 +12,9 @@ public class BofaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BofaApplication.class, args);
 		
-		Customer cust = new Customer(); 
-		//cust.
-	}
+		Transaction t1 = new Transaction(101, "Deposit", 1000.0, "BR001");
+		  
+	//}
 	
 	
 	
@@ -88,5 +89,4 @@ public class BofaApplication {
 	 * 
 	 * 
 	 */
-
-}
+	}}
