@@ -3,9 +3,19 @@
  */
 package com.bofa.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * ramesh b
  */
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
 	/**
@@ -84,13 +94,48 @@ public class Customer {
 	 *     c += a 
 	 *     c = c + a //  both 
 	 *     
+	 *     
+	 *     Control statments 
+	 *     
+	 *     if () 
+	 *     {
+	 *       if(){
+	 *          /// 
+	 *       }
+	 *     }
+	 *     else if(condition){
+	 *     
+	 *     }
+	 *     
+	 *     switch ()
+	 *     
+	 *     cases 1: 
+	 *     
+	 *   list of 5 customer  
+	 *     for ()
+	 *     
+	 *     while(Boolean_Expression){
+	 *        
+	 *        break;
+	 *        
+	 *        continue;
+	 *        
+	 *        
+	 *     }
+	 *     
+	 *     do {
+	 *     
+	 *      }
+	 *      while();
+	 *      
+	 *     
 	 * 
 	 * 
 	 */
 
-	public long customerId;
+	public Long customerId;
 
-	public String firstName;
+	private String firstName;
 
 	private String lastName;   // this scope is only inside this class you can't access this variable outside the class
 	
@@ -131,6 +176,16 @@ public class Customer {
 		  System.out.println(name);
 		
 	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;  
+	}
+	
+	
 	
 
 }
