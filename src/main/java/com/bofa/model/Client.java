@@ -1,22 +1,17 @@
 package com.bofa.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client {
-
-    public Client() {
-        System.out.println("Nothing is in this constructor");
-    }
-
-    public Client(long clientId, String clientName, String clientEmail, String clientAddress, Long clientPhone, String clientGender) {
-        this.clientId = clientId;
-        this.clientName = clientName;
-        this.clientEmail = clientEmail;
-        this.clientAddress = clientAddress;
-        this.clientPhone = clientPhone;
-        this.clientGender = clientGender;
-    }
-
-    long clientId;
-//    default access specifier
+    //    default access specifier
+    private long clientId;
     public String clientName;
 
     private String clientEmail;
@@ -24,7 +19,6 @@ public class Client {
     private String clientAddress;
 
     protected long clientPhone;
-
 
     protected String clientGender;
 

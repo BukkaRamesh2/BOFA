@@ -49,7 +49,7 @@ public class TestClient {
 
 //        Print the client with all the parameters
         Client client1 = new Client(1, "Raj", "test@example.com", "address", 2349234234L, "Male");
-        System.out.println(client1.clientName + " is the client name "+ "With "+client1.clientId);
+        System.out.println(client1.clientName + " is the client name "+ "With "+ client1.getClientId());
 
 //        Perform arithmetic operators
         int a = 10, b = 20;
