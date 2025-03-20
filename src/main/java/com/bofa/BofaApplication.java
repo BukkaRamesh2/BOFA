@@ -12,7 +12,7 @@ public class BofaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BofaApplication.class, args);
 		
-		Transaction t1 = new Transaction(101, "Deposit", 1000.0, "BR001");
+		Transaction t1 = new Transaction(101, "Deposit", 1000.0, "BR001",  5000.0);
 		  
 	//}
 	
