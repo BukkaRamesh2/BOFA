@@ -23,7 +23,7 @@ public class Accounts {
 public void main(String[] args) {
    //Accounts account1 = new Accounts(001, 987654321, "Savings", 5000, true);
    //Accounts account2 = new Accounts(002, 123456789, "Checking", 3000, true);
-	accountId = 001;
+	accountId = 002;
 	accountNumber = 123456789;
 	accountType = "savings";
 	balance = 10000;
