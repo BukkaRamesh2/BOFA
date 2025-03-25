@@ -9,11 +9,13 @@ public interface CustomerService {
 	// I have to perform 4 operations for customer add delete get update
 	
 	/*
-	 * 
+	 *  I want to create a saveCustomer method which has return tupe of customer and method should abke to pass customer object as param and save in DB
+	 *  
+	 *  
 	 * 
 	 *  
 	 */
-	
+     public Customer saveCustomer(Customer customer);
 	
 	public Customer getCustomer(Long customerId);
 	

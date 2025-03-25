@@ -3,6 +3,12 @@
  */
 package com.bofa.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -13,9 +19,11 @@ import lombok.Setter;
  * ramesh b
  */
 
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tb_customer")
 public class Customer {
 
 	/**
@@ -129,12 +137,72 @@ public class Customer {
 	 *      while();
 	 *      
 	 *     
-	 * 
+	 *     
+	 *     
+	 *     
+	 *     //Controller
+	 *     
+	 *     @RestController
+	 *     @RequestMapping 
+	 *     
+	 *     @Autowired
+	 *     
+	 *     
+	 *     @Get
+	 *     @Post
+	 *     
+	 *     
+	 *     
+	 *     send data to service 
+	 *     
+	 *     Service -- 
+	 *     @Service
+	 *     
+	 *     
+	 *     
+	 *     Interface  -- abstract methods 
+	 *     Class -- keywoprd   implements 
+	 *     
+	 *     
+	 *     Reporsitory
+	 *      @Repository
+	 *      
+	 *      
+	 *      Interface extending the JPA<Customer, Long>
+	 *      
+	 *     
+	 *     model
+	 *     @Entity
+	 *     @Getter
+	 *     @Seeter
+	 *     @Data
+	 *     @NoArgsContructor
+	 *     @AllArgsContrsuctor
+	 *     
+	 *     @Id
+	 *     
+	 *     
+	 *     
+	 *     
+	 *     H2 in built database for your spring boot applicaiotns
+	 *     
+	 *     {
+	 *     "firstName":",
+	 *     "lastName":",
+	 *     "address":",
+	 *     "email":",
+	 *     "mobileNumber":"
+	 *     }
+	 *     
+	 *    http
 	 * 
 	 */
-
+	
+	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	public Long customerId;
 
+	@Column(nullable = false)
 	private String firstName;
 
 	private String lastName;   // this scope is only inside this class you can't access this variable outside the class
@@ -176,14 +244,71 @@ public class Customer {
 		  System.out.println(name);
 		
 	}
-	
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
 	public String getFirstName() {
-		return this.firstName;
+		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;  
+		this.firstName = firstName;
 	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Long getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(Long mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
 	
 	
 	
