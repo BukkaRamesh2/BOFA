@@ -1,11 +1,21 @@
 package com.bofa.model;
 
-import lombok.ToString;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-public class Employees {
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Employee {
 //     *  Employees -- Gowth
-
-     public String employeeId;
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     public long employeeId;
      private String firstName;
      private String lastName;
      private String address;
@@ -13,24 +23,13 @@ public class Employees {
      private long mobileNumber;
      private String gender;
      private long  salary;
-     public Employees() {}
 
-     public Employees(String employeeId, String firstName, String lastName, String address, String email, long mobileNumber, String gender, long salary) {
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.email = email;
-        this.mobileNumber = mobileNumber;
-        this.gender = gender;
-        this.salary = salary;
-     }
 
-    public String getEmployeeId() {
+    public long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(long employeeId) {
         this.employeeId = employeeId;
     }
 
