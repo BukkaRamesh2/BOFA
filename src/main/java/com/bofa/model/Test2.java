@@ -7,15 +7,14 @@ public class Test2 {
 	}
 	
 	 public static void main(String[] args) {
-	        Transaction t1 = new Transaction(101, "Deposit", 100.00, "BR001", 5000.0);
+		 Transaction transaction = new Transaction(1, "Deposit", 500.0, "BR001", 1000.0);
 	        
 	       
-	        System.out.println("Transaction ID: " + t1.transactionId);
-	        System.out.println("Type: " + t1.transactionType);
-	        System.out.println("Branch: " + t1.branchCode);
+	
+	        transaction.performOperations();
 	        
 	      
-	        t1.performOperations();
+	        System.out.println(transaction);
 	    }
 
 

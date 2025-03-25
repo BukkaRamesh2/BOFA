@@ -1,21 +1,13 @@
 package com.bofa.model;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 
 public class Transaction {
-	public int transactionId;
+    public int transactionId;
     public String transactionType;
     public double amount;
     public String branchCode;
     public double balance;
 
-    // Constructor Initialization
+    // Manually defined constructor
     public Transaction(int transactionId, String transactionType, double amount, String branchCode, double balance) {
         this.transactionId = transactionId;
         this.transactionType = transactionType;
@@ -23,55 +15,68 @@ public class Transaction {
         this.branchCode = branchCode;
         this.balance = balance;
     }
-    // Getter methods
-    public int gettransactionId() {
+
+    // Manually defined no-args constructor (optional)
+    public Transaction() {
+    }
+
+    // Getters
+    public int getTransactionId() {
         return transactionId;
     }
-    public String gettransactionType() {
+
+    public String getTransactionType() {
         return transactionType;
-        
     }
-    public String getbranchCode() {
-        return branchCode;
-        
-    }
-    public double getamount() {
+
+    public double getAmount() {
         return amount;
     }
-    public double getbalance() {
-        return balance;
-    }
-    // Setter methods
-    
-    public int settransactionId() {
-        return transactionId;
-    }
-    public String settransactionType() {
-        return transactionType;
-        
-    }
-    public String setbranchCode() {
+
+    public String getBranchCode() {
         return branchCode;
-        
     }
-    public double setamount() {
-        return amount;
-    }
-    public double setbalance() {
+
+    public double getBalance() {
         return balance;
     }
 
-  
+    // Setters
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public void performOperations() {
         System.out.println("Initial balance: " + balance);
-        
-        //amount = 500;  
         System.out.println("Deposit amount: " + amount);
         balance = amount + balance;
         System.out.println("Balance after deposit: " + balance);
-
     }
 
- 
-   
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", transactionType='" + transactionType + '\'' +
+                ", amount=" + amount +
+                ", branchCode='" + branchCode + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }
