@@ -54,7 +54,7 @@ public class Customer {
 	 * 
 	 * 
 	 * Data types
-	 * 
+	 * jdlkadf
 	 * Integer -- 1 -- 10mb Long -- 123144 -- 100mb Boolean -- true /false -- String
 	 * -- combinatiopn of characters and words Char -- single char Double -- 2.34234
 	 * Float -- 2.3
