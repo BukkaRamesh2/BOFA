@@ -2,18 +2,28 @@ package com.bofa.service;
 
 import com.bofa.model.Client;
 import com.bofa.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ClientServiceImpl implements ClientService{
 
-    private final ClientRepository clientRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
+    }
+
+
+    @Override
+    public Client addClient(Client client) {
+        return clientRepository.save(client);
     }
 
     @Override
