@@ -1,6 +1,7 @@
 package com.bofa.controller;
 
 import com.bofa.model.Client;
+import com.bofa.service.ClientService;
 import com.bofa.service.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-    @Autowired ClientServiceImpl clientServiceImpl;
+	
+    @Autowired 
+    ClientService clientServiceImpl;
 
     @PostMapping("/add")
     public Client addClient(@RequestBody Client client) {

@@ -1,4 +1,4 @@
-package com.bofa.controlller;
+package com.bofa.controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.bofa.model.Employee;
 import com.bofa.service.EmployeeServiceImpl;
