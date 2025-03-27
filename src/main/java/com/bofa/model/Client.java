@@ -18,7 +18,7 @@ public class Client {
     //    default access specifier
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long clientId;
+    private Long clientId;
     public String clientName;
 
     private String clientEmail;
