@@ -1,5 +1,8 @@
 package com.bofa.service;
 
+import com.bofa.exception.ClientAlreadyExistsException;
+import com.bofa.exception.ClientNotFoundException;
+import com.bofa.exception.InvalidClientDataException;
 import com.bofa.model.Client;
 import com.bofa.repository.ClientRepository;
 import org.springframework.http.HttpStatus;
@@ -23,16 +26,16 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client addClient(Client client) {
         if (clientCacheSet.contains(client.getClientId())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Client ID already exists");
+            throw new ClientAlreadyExistsException("Client ID already exists");
         }
 
         Client savedClient = clientRepository.save(client);
         clientCache.add(savedClient);
         clientCacheMap.put(savedClient.getClientId(), savedClient);
         clientCacheSet.add(savedClient.getClientId());
-        System.out.println("Client Cache " + clientCache);
-
-        System.out.println("Client Cache Map: " + clientCacheMap + " Client Cache Set: " + clientCacheSet);
+//        System.out.println("Client Cache " + clientCache);
+//
+//        System.out.println("Client Cache Map: " + clientCacheMap + " Client Cache Set: " + clientCacheSet);
 
         return savedClient;
     }
@@ -45,13 +48,13 @@ public class ClientServiceImpl implements ClientService {
         System.out.println("Client Cache Map: " + clientCacheMap);
 
         return clientRepository.findById(clientId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
+                .orElseThrow(() -> new ClientNotFoundException("Client not found"));
     }
 
     @Override
     public List<Client> getAllClients() {
         if (clientCache.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No clients found");
+            throw new ClientNotFoundException("No clients found");
         }
         return clientCache;
     }
@@ -59,11 +62,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteClient(Long clientId) {
         if (!clientCacheSet.contains(clientId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client with ID " + clientId + " does not exist");
+            throw new ClientNotFoundException("Client with ID " + clientId + " does not exist");
         }
 
         clientRepository.deleteById(clientId);
-        clientCache.removeIf(client -> client.getClientId().equals(clientId));
+//        clientCache.removeIf(client -> client.getClientId().equals(clientId));
         clientCacheMap.remove(clientId);
         clientCacheSet.remove(clientId);
         System.out.println("Client Cache Map: " + clientCacheMap + " Client Cache Set: " + clientCacheSet);
@@ -72,11 +75,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client updateClient(Client client) {
         if (client.getClientName() == null || client.getClientName().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Client name cannot be null or empty");
+            throw new InvalidClientDataException( "Client name cannot be null or empty");
         }
 
         if (!clientCacheSet.contains(client.getClientId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found");
+            throw new ClientNotFoundException("Client not found");
         }
 
         Client existingClient = clientCacheMap.get(client.getClientId());

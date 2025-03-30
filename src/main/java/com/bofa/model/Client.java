@@ -25,7 +25,7 @@ public class Client {
 
     private String clientAddress;
 
-    protected long clientPhone;
+    protected Long clientPhone;
 
     protected String clientGender;
 
