@@ -1,6 +1,6 @@
 package com.bofa.service;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +17,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepository custRepo;
+	
+	
+	private List<Customer> customerCache = new ArrayList<>();
+	
+	private Set<Long> highBalanceCustomerIds = new HashSet<>();
+	
+	private Map<Long, Customer> customerMap = new HashMap<>();
+	
+	
 
 	public Customer saveCustomer(Customer customer) {
 		return custRepo.save(customer);
@@ -32,15 +41,42 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<Customer> getAllCustomers() {
-		// TODO Auto-generated method stub loops
+		
 		List<Customer> custList = new ArrayList(); // I created a object of loist
 
 		custList = custRepo.findAll(); // get all customer from DB
-
+		
 		if (custList.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No customer found");
 		}
 
+		Iterator<Customer> iterator = custList.iterator();
+		while(iterator.hasNext()) {
+			Customer cust = iterator.next();
+			if(cust.getBalance() < 500) {
+				iterator.remove();
+			}
+		}
+		
+		Set<Customer> uniqueData = new TreeSet<>(custList);  // pass your list to set object and print set that will have uniquw elements 
+		
+		
+		
+		customerCache.addAll(custList);
+		
+		// using map get all customer IDs greater than 1000
+		
+		for(Customer customer: custList) {
+			customerMap.put(customer.getCustomerId(), customer);
+			if(customer.getBalance() > 1000) {
+				highBalanceCustomerIds.add(customer.getCustomerId());  // key value pair data 
+			}
+		}
+		
+		// get customer by ID with Map lookup
+		
+		
+		
 		// using for each loop to process customer
 
 		custList.forEach(customer -> {

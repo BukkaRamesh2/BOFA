@@ -196,6 +196,45 @@ public class Customer {
 	 *     
 	 *    http
 	 * 
+	 * 
+	 *  Collections
+	 *     
+	 *     List, set, map  -- interface
+	 *     
+	 *     LinkedList    -- you can access the daata by their [postoions [5] = {"",}
+	 *     ArrayList
+	 *     
+	 *     List<E> list = new ArrayList<>();       [0], [1], [2], 
+	 *     List<E> linkedList = new LinkedList<>();    [0, data, 1]
+	 *     
+	 *     Array list 
+	 *     insertion time is faster 
+	 *     
+	 *     
+	 *     
+	 *     
+	 *     Set will not allow duplicates
+	 *     
+	 *     add()
+	 *     clear()
+	 *     isEmpty()
+	 *     size()
+	 *     remove()
+	 *     contains()
+	 *     
+	 *     LinkedHashSet
+	 *     TreeeSet    -- natural sorting order 
+	 *     HashSet   -- insertion order 
+	 *     
+	 *     HashMap
+	 *     LinkeHashMap    --- key value pair 
+	 *     TreeMap
+	 *     
+	 *     
+	 *     
+	 *     
+	 * 
+	 * 
 	 */
 	
 	@Id
@@ -216,6 +255,8 @@ public class Customer {
 	private String gender;
 	
 	private boolean status;
+	
+	private Long balance;
 	
 	static String name = "Alex";  // variable the scope of this varaible is there till entire class because you made it as globa; variable 
 	
@@ -307,6 +348,22 @@ public class Customer {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public Long getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Long balance) {
+		this.balance = balance;
+	}
+
+	public static String getName() {
+		return name;
+	}
+
+	public static void setName(String name) {
+		Customer.name = name;
 	}
 	
 	
