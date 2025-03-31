@@ -6,105 +6,97 @@ import com.bofa.exception.InvalidClientDataException;
 import com.bofa.model.Client;
 import com.bofa.repository.ClientRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
-    private List<Client> clientCache = new ArrayList<>();
+//    private List<Client> clientCache = new ArrayList<>();
     private Map<Long, Client> clientCacheMap = new HashMap<>();
-    private Set<Long> clientCacheSet = new HashSet<>();
+//    private Set<Long> clientCacheSet = new HashSet<>();
+    private final Lock clientLock = new ReentrantLock();  // Lock for thread safety
+
 
     public ClientServiceImpl(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
+    @Async
     @Override
-    public Client addClient(Client client) {
-        if (clientCacheSet.contains(client.getClientId())) {
-            throw new ClientAlreadyExistsException("Client ID already exists");
+    public CompletableFuture<Client> addClient(Client client) {
+//        Create a lock
+        clientLock.lock();
+        try {
+            if (clientCacheMap.containsKey(client.getClientId())) {
+                throw new ClientAlreadyExistsException("Client ID already exists");
+            }
+            Client savedClient = clientRepository.save(client);
+            clientCacheMap.put(savedClient.getClientId(), savedClient);
+            return CompletableFuture.completedFuture(savedClient);
+        } finally {
+//            close the lock
+            clientLock.unlock();
         }
-
-        Client savedClient = clientRepository.save(client);
-        clientCache.add(savedClient);
-        clientCacheMap.put(savedClient.getClientId(), savedClient);
-        clientCacheSet.add(savedClient.getClientId());
-//        System.out.println("Client Cache " + clientCache);
-//
-//        System.out.println("Client Cache Map: " + clientCacheMap + " Client Cache Set: " + clientCacheSet);
-
-        return savedClient;
     }
 
+    @Async
     @Override
-    public Client getClient(Long clientId) {
-        if (clientCacheMap.containsKey(clientId)) {
-            return clientCacheMap.get(clientId);
-        }
-        System.out.println("Client Cache Map: " + clientCacheMap);
-
-        return clientRepository.findById(clientId)
-                .orElseThrow(() -> new ClientNotFoundException("Client not found"));
+    public CompletableFuture<Client> getClient(Long clientId) {
+        return CompletableFuture.completedFuture(
+                clientCacheMap.getOrDefault(clientId,
+                        clientRepository.findById(clientId)
+                                .orElseThrow(() -> new ClientNotFoundException("Client not found"))));
     }
 
+    @Async
     @Override
-    public List<Client> getAllClients() {
-        if (clientCache.isEmpty()) {
-            throw new ClientNotFoundException("No clients found");
-        }
-        return clientCache;
+    public CompletableFuture<List<Client>> getAllClients() {
+        return CompletableFuture.completedFuture(new ArrayList<>(clientCacheMap.values()));
     }
 
-    @Override
-    public void deleteClient(Long clientId) {
-        if (!clientCacheSet.contains(clientId)) {
-            throw new ClientNotFoundException("Client with ID " + clientId + " does not exist");
-        }
 
-        clientRepository.deleteById(clientId);
-//        clientCache.removeIf(client -> client.getClientId().equals(clientId));
-        clientCacheMap.remove(clientId);
-        clientCacheSet.remove(clientId);
-        System.out.println("Client Cache Map: " + clientCacheMap + " Client Cache Set: " + clientCacheSet);
+    @Async
+    @Override
+    public CompletableFuture<Void> deleteClient(Long clientId) {
+        clientLock.lock();  // Lock before modifying shared resources
+        try {
+            if (!clientCacheMap.containsKey(clientId)) {
+                throw new ClientNotFoundException("Client with ID " + clientId + " does not exist");
+            }
+            clientRepository.deleteById(clientId);
+            clientCacheMap.remove(clientId);
+            return CompletableFuture.completedFuture(null);
+        } finally {
+            System.out.println("Client Cache after deletion: " + clientCacheMap);
+            clientLock.unlock();  // Release lock
+        }
     }
 
+    @Async
     @Override
-    public Client updateClient(Client client) {
-        if (client.getClientName() == null || client.getClientName().isEmpty()) {
-            throw new InvalidClientDataException( "Client name cannot be null or empty");
+    public CompletableFuture<Client> updateClient(Client client) {
+        clientLock.lock();
+        try {
+            if (client.getClientName() == null || client.getClientName().isEmpty()) {
+                throw new InvalidClientDataException("Client name cannot be null or empty");
+            }
+            if (!clientCacheMap.containsKey(client.getClientId())) {
+                throw new ClientNotFoundException("Client not found");
+            }
+            Client updatedClient = clientRepository.save(client);
+            clientCacheMap.put(updatedClient.getClientId(), updatedClient);
+            return CompletableFuture.completedFuture(updatedClient);
+        } finally {
+            System.out.println("Client Cache after update: " + clientCacheMap);
+            clientLock.unlock();
         }
-
-        if (!clientCacheSet.contains(client.getClientId())) {
-            throw new ClientNotFoundException("Client not found");
-        }
-
-        Client existingClient = clientCacheMap.get(client.getClientId());
-        existingClient.setClientName(client.getClientName());
-        existingClient.setClientEmail(client.getClientEmail());
-        existingClient.setClientPhone(client.getClientPhone());
-
-        switch (client.getClientName()) {
-            case "John":
-                System.out.println("Client name John already exists in the database.");
-                break;
-            case "Alex":
-                System.out.println("Client name Alex exists in the database.");
-                break;
-            case "Bob":
-                System.out.println("Client name Bob exists in the database.");
-                break;
-            default:
-                System.out.println("Client updated successfully.");
-                break;
-        }
-
-        Client updatedClient = clientRepository.save(existingClient);
-        clientCacheMap.put(updatedClient.getClientId(), updatedClient);
-        System.out.println("Client Cache Map: " + clientCacheMap);
-        return updatedClient;
     }
 }
