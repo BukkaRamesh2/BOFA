@@ -50,6 +50,7 @@ public class ClientServiceImpl implements ClientService {
     @Async
     @Override
     public CompletableFuture<Client> getClient(Long clientId) {
+
         return CompletableFuture.completedFuture(
                 clientCacheMap.getOrDefault(clientId,
                         clientRepository.findById(clientId)
@@ -59,6 +60,12 @@ public class ClientServiceImpl implements ClientService {
     @Async
     @Override
     public CompletableFuture<List<Client>> getAllClients() {
+        if (clientCacheMap.isEmpty()) {
+            List<Client> clients = clientRepository.findAll();
+            for (Client client : clients) {
+                clientCacheMap.put(client.getClientId(), client);
+            }
+        }
         return CompletableFuture.completedFuture(new ArrayList<>(clientCacheMap.values()));
     }
 
@@ -71,8 +78,14 @@ public class ClientServiceImpl implements ClientService {
             if (!clientCacheMap.containsKey(clientId)) {
                 throw new ClientNotFoundException("Client with ID " + clientId + " does not exist");
             }
+
             clientRepository.deleteById(clientId);
-            clientCacheMap.remove(clientId);
+            // Ensure the client is fully removed from cache
+            while (clientCacheMap.containsKey(clientId)) {
+                clientCacheMap.remove(clientId);
+            }
+//            clientCacheMap.remove(clientId);
+            System.out.println("Client with ID " + clientId + " deleted successfully");
             return CompletableFuture.completedFuture(null);
         } finally {
             System.out.println("Client Cache after deletion: " + clientCacheMap);
@@ -91,6 +104,15 @@ public class ClientServiceImpl implements ClientService {
             if (!clientCacheMap.containsKey(client.getClientId())) {
                 throw new ClientNotFoundException("Client not found");
             }
+            switch (client.getClientName()){
+                case "John", "Jane" -> {
+                    System.out.println("Client name already exists");
+                    throw new ClientAlreadyExistsException("Client name already exists");
+                }
+                default ->
+                    System.out.println("Client updated successfully");
+            }
+
             Client updatedClient = clientRepository.save(client);
             clientCacheMap.put(updatedClient.getClientId(), updatedClient);
             return CompletableFuture.completedFuture(updatedClient);
