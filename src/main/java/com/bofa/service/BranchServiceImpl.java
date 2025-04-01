@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.bofa.model.Branch;
-import com.bofa.model.Client;
 import com.bofa.repository.BranchRepository;
 
 public class BranchServiceImpl implements BranchService {
