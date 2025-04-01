@@ -1,5 +1,7 @@
 package com.bofa.model;
 
+import com.bofa.exception.ExceptionHandling;
+
 public class Transaction {
     public int transactionId;
     public String transactionType;
@@ -16,7 +18,7 @@ public class Transaction {
         this.balance = balance;
     }
 
-    // Manually defined no-args constructor (optional)
+    // Manually defined no-args constructor
     public Transaction() {
     }
 
@@ -60,13 +62,6 @@ public class Transaction {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public void performOperations() {
-        System.out.println("Initial balance: " + balance);
-        System.out.println("Deposit amount: " + amount);
-        balance = amount + balance;
-        System.out.println("Balance after deposit: " + balance);
     }
 
     @Override
