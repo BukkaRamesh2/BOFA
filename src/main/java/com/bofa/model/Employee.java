@@ -8,14 +8,16 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Entity
 public class Employee {
+
+//    public Employee(){}
 //     *  Employees -- Gowth
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
-     public long employeeId;
+     private long employeeId;
      private String firstName;
      private String lastName;
      private String address;
@@ -23,6 +25,17 @@ public class Employee {
      private long mobileNumber;
      private String gender;
      private long  salary;
+
+//    public Employee(long employeeId, String firstName, String lastName, String address, String email, long mobileNumber, String gender, long salary) {
+//        this.employeeId = employeeId;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.address = address;
+//        this.email = email;
+//        this.mobileNumber = mobileNumber;
+//        this.gender = gender;
+//        this.salary = salary;
+//    }
 
 
     public long getEmployeeId() {
