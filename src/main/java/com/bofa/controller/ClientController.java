@@ -11,36 +11,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
-	
-    @Autowired 
-    ClientService clientServiceImpl;
+    @Autowired
+    private ClientService clientServiceImpl;
 
     @PostMapping("/add")
     public Client addClient(@RequestBody Client client) {
-        return clientServiceImpl.addClient(client);
+        return clientServiceImpl.addClient(client).join();
     }
 
     @GetMapping()
     public List<Client> getAllClients() {
-        return clientServiceImpl.getAllClients();
+        return clientServiceImpl.getAllClients().join();
     }
 
     @GetMapping("/{clientId}")
     public Client getClient(@PathVariable Long clientId) {
-        return clientServiceImpl.getClient(clientId);
+        return clientServiceImpl.getClient(clientId).join();
     }
 
     @PutMapping("/update/{clientId}")
     public Client updateClient(@PathVariable Long clientId,  @RequestBody Client client) {
-        if (client.getClientId() != clientId) {
+        if (!client.getClientId().equals(clientId)) {
             throw new RuntimeException("Client ID does not match");
         }
-        return clientServiceImpl.updateClient(client);
+        return clientServiceImpl.updateClient(client).join();
     }
 
     @DeleteMapping("/delete/{clientId}")
     public void deleteClient(@PathVariable Long clientId) {
-        clientServiceImpl.deleteClient(clientId);
+        clientServiceImpl.deleteClient(clientId).join();
     }
 
 
