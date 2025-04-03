@@ -21,10 +21,8 @@ import lombok.Setter;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "tb_customer")
-public class Customer {
+public class Customer implements Comparable<Customer>{
 
 	/**
 	 * 
@@ -60,7 +58,7 @@ public class Customer {
 	 * Float -- 2.3
 	 * 
 	 * 
-	 * naming copnvenstions to create class, varibales,
+	 * naming convenstions to create class, varibales,
 	 * 
 	 * Syntax : access specifier datatype name
 	 * 
@@ -231,9 +229,65 @@ public class Customer {
 	 *     TreeMap
 	 *     
 	 *     
+	 *     Comparable 
+	 *     natureal sorting 
+	 *     compareTo()
+	 *     model class 
+	 *     single sorting /// you can sort one variable/ filed in a class
 	 *     
 	 *     
-	 * 
+	 *     
+	 *     comparator
+	 *     custom sorting logic
+	 *     compare()
+	 *     the mplelemtation should happen in separaet class
+	 *     you can sort multiple variables / fiedls
+	 *     
+	 *     
+	 *     
+	 *       Expcetion 
+	 *       
+	 *       
+	 *       Run time    
+	 *       Compile time 
+	 *       
+	 *       try{
+	 *          // main logic 
+	 *          multipe operations
+	 *          
+	 *       } catch(Exception e){
+	 *       e.printStackTracke();
+	 *       throws new classname of exception
+	 *       } catch(NullPointerEXception e){
+	 *       
+	 *       }
+	 *       
+	 *       try(open operations){
+	 *       
+	 *       } // try with resousce 
+	 *       
+	 *       
+	 *       throws 
+	 *       if you have any class level exception you can use throw and this will be part of your method
+	 *       
+	 *       
+	 *       throw
+	 *       this will be part of your catch block
+	 *       you are going to threow new excetion and passa a method name or class name 
+	 *       
+	 *       finally
+	 *       this is executed if any exceton occurs or not the finally block will be executed with out faioure 
+	 *       if i want to close DB coneeectiikn  or file ooperations 
+	 *       closing the file ofter alter / updating the inforamtion oin FILEINputStram and FIleOutputStram
+	 *       
+	 *       Global exceptpjins
+	 *       
+	 *       @RestControllerAdvice   // Exception  class level
+	 *       
+	 *       @ExceptionHandler   // use this on top of methods 
+	 *       
+	 *       
+	 *       
 	 * 
 	 */
 	
@@ -364,6 +418,12 @@ public class Customer {
 
 	public static void setName(String name) {
 		Customer.name = name;
+	}
+
+	@Override
+	public int compareTo(Customer o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	

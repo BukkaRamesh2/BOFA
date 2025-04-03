@@ -18,7 +18,9 @@ public class BofaApplication {
 	
 	
 	/*
-	 * 
+	 *   Banking sector  
+	 *    
+	 *    
 	 *  Customer -- Raj
 	 *    customerid
 	 *    first name
@@ -53,7 +55,7 @@ public class BofaApplication {
 	 *   gender
 	 *   pay/salary
 	 *   
-	 *  Branches  -- Laxman
+	 *  Branches  -- Harsha
 	 *   branchid
 	 *   branch name
 	 *   branch address
@@ -61,12 +63,28 @@ public class BofaApplication {
 	 *   branch code
 	 *   Timings
 	 *  
-	 *  Services   -- Rupesh
-	 *   ServiceId
-	 *   Lending Services -- auto , personal,
-	 *   Retail Services --
-	 *   Digital Services  -- 
-	 *   Customer Service -- 
+	 *  Services   -- Vishnu 
+	 *   ServiceId    long
+	 *   Lending Services -- auto , personal,list
+	 *   Retail Services --  List
+	 *   Digital Services  -- String
+	 *   Customer Service -- String
+	 *   status -- boolean
+	 *   
+	 *   
+	 *   
+	 *   Support  -- Jagadeesh
+	 *    caseid -- int/Long   -- private
+	 *    caseDescription  -- char[]/String -- public
+	 *    caseOwner -- string   -- public
+	 *    employeeName  -- string -- public
+	 *    attachments  -- string  -- protected
+	 *    status  -- boolean
+	 *    
+	 *    
+	 *   
+	 *   
+	 *   
 	 *   
 	 *  
 	 *  Model // POJO
@@ -74,8 +92,8 @@ public class BofaApplication {
 	 *  object ]
 	 *  attributes
 	 *  data types
-	 *  access specifiers 
-	 *  constructor
+	 *  access specifiers --- public, private, default, protected
+	 *  constructor   -- default , parameterised contrsutors
 	 *  
 	 *  
 	 *  
