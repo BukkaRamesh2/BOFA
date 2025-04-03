@@ -35,7 +35,7 @@ public class BranchServiceImpl implements BranchService {
 	public List<Branch> getAllBranches() {
 		List<Branch> branches = branchRepository.findAll();
 		if (branches.isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Branches found"));
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Branches found");
 		}
 		branches.forEach(branch -> {
 			System.out.println(branch.getBranchName());
