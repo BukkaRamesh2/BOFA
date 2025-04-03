@@ -38,7 +38,12 @@ public class Employee {
 //    }
 
 
-    public long getEmployeeId() {
+    public Employee(int i, String string, String string2, String string3, String string4, long l, String string5,
+			int j) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public long getEmployeeId() {
         return employeeId;
     }
 

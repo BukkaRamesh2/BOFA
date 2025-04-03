@@ -23,7 +23,7 @@ public interface CustomerService {
 	
 	public void deleteCustomer(Long customerId);
 	
-	public Customer updateCustomer(Customer customer);
+	public Customer updateCustomer(Customer customer) throws Exception;
 	
 	
 
