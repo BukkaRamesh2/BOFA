@@ -288,6 +288,39 @@ public class Customer implements Comparable<Customer>{
 	 *       
 	 *       
 	 *       
+	 *       Token based
+	 *       
+	 *       JWT token
+	 *       Basic Auth 
+	 *       NoAuth
+	 *       USer and Role Based with default Spring Security
+	 *       
+	 *       Generate a token and validate it 
+	 *       
+	 *       
+	 *       Get 
+	 *       dependencies 
+	 *       propeeries 
+	 *       configuration class
+	 *       component class 
+	 *       authentication filter in controller '
+	 *       validate the sessipon 
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       
+	 *       '
+	 *       
 	 * 
 	 */
 	

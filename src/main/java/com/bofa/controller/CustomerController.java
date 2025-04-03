@@ -13,7 +13,7 @@ import com.bofa.service.CustomerServiceImpl;
 import jakarta.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("gmail")
+@RequestMapping("customers")
 public class CustomerController {
 	
 	
