@@ -1,12 +1,14 @@
 package com.bofa.service;
 
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.bofa.model.Branch;
 import com.bofa.repository.BranchRepository;
+import com.pnc.model.PncCustomer;
 
 public class BranchServiceImpl implements BranchService {
 	private BranchRepository branchRepository;
@@ -15,6 +17,27 @@ public class BranchServiceImpl implements BranchService {
 		this.branchRepository = branchRepository;
 	}
 
+	
+	private final ReentrantLock lock = new ReentrantLock();
+    
+    private final Set<String> savedBranchCodes = Collections.synchronizedSet(new HashSet<>());
+
+    public void saveBranchWithThreadSafety(Branch branch) {
+        lock.lock();
+        try {
+            if (!savedBranchCodes.contains(branch.getBranchCode())) {
+            	savedBranchCodes.add(branch.getBranchCode());
+                branchRepository.save(branch);
+                System.out.println("Saved branch: " + branch.getBranchCode()));
+            } else {
+                System.out.println("Duplicate detected: " + branch.getBranchCode());
+            }
+        } finally {
+            lock.unlock();
+        }
+    }	
+	
+	
 	@Override
 	public Branch addBranch(Branch branch) {
 		return branchRepository.save(branch);

@@ -44,7 +44,7 @@ public class Branch {
 		this.branchManager = branchManager;
 	}
 	
-	public String branchCode() {
+	public String getBranchCode() {
 		return branchCode;
 	}
 	
